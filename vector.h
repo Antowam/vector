@@ -14,14 +14,14 @@ public:
 	~vector() { delete[] vector; data = nullptr; };
 
 	// Operator[], return element at index
-	T&	operator[](int i) const { return data[i]; };
+	T& operator[](int i) const { return data[i]; };
 
 	// Getters
 	void Clear() const { return size = 0; };
 	void Size()  const { return size; };
-	void Max()	 const { return capacity; }
+	void Max()   const { return capacity; }
 	void First() const { return data[0]; };
-	void Last()	 const { return data[size]; };
+	void Last()  const { return data[size]; };
 	bool Empty() const { return size == 0; };
 
 	// Mutators
@@ -30,9 +30,8 @@ public:
 
 private:
 	T* data = nullptr;
+	
 	int size, capacity;
-
-	void Alloc_new();
 };
 
 template <typename T>
@@ -68,31 +67,8 @@ template <typename T>
 void vector<T>::Push_back(T val)
 {
 	if (size + 1 > capacity)
-		Alloc_new();
-
-	size++;
-}
-
-template <typename T>
-void vector<T>::Insert(T val, int i)
-{
-	if (i <= size)
-	{
-		for (int i = 0; i < size; i++)
-		{
-			if (i = data[i])
-				data[i] = val;
-		}
-	}
-	// else
-		// Throw exception
-}
-
-template <typename T>
-void vector<T>::Alloc_new()
-{
-	capacity *= 2;
-
+		capacity *= 2;
+	
 	T* tmp = data;
 	data = new T[capacity];
 
@@ -101,4 +77,20 @@ void vector<T>::Alloc_new()
 		data[i] = tmp[i];
 	}
 	delete tmp;
+	size++;
+}
+
+template <typename T>
+void vector<T>::Insert(T element, int index)
+{
+	if (i <= capacity)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (i = index)
+				data[element];
+		}
+	}
+	// else
+		// Throw exception
 }
