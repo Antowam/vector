@@ -32,6 +32,9 @@ public:
 	// Mutators
 	void Push_back(T val);
 	void Insert(T val, int i);
+
+private:
+	void Alloc_new();
 };
 
 template <typename T>
@@ -68,17 +71,25 @@ template <typename T>
 void vector<T>::Push_back(T val)
 {
 	if (size + 1 > capacity)
-		capacity *= 2;
+		Alloc_new();
+
+	data[size + 1] = val;
+	size++;
+}
+
+template <typename T>
+void vector<T>::Alloc_new()
+{
+	capacity *= 2;
 
 	T* tmp = data;
 	data = new T[capacity];
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < capacity; i++)
 	{
 		data[i] = tmp[i];
 	}
 	delete tmp;
-	size++;
 }
 
 template <typename T>
