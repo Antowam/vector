@@ -30,7 +30,7 @@ public:
 
 private:
 	T* data = nullptr;
-	
+
 	int size, capacity;
 };
 
@@ -53,10 +53,11 @@ vector<T>::vector(int i)
 template <typename T>
 vector<T>::vector(const vector& vec)
 {
-	if (vec.size > capacity)
-		Alloc_new();
+	capacity vec.capacity;
+	
+	data = new T[capacity];
 
-	for (int i = 0; vec.size > size; i++)
+	for (int i = 0; size < vec.size; i++)
 	{
 		data[i] = vec.data[i];
 		size++;
@@ -68,7 +69,7 @@ void vector<T>::Push_back(T val)
 {
 	if (size + 1 > capacity)
 		capacity *= 2;
-	
+
 	T* tmp = data;
 	data = new T[capacity];
 
