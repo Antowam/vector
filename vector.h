@@ -7,16 +7,17 @@ public:
 
 	// Constructors
 	vector<T>();
-	vector(const vector&); // copy constructor
+	vector<T>(int i);
+	vector(const vector& vec);
 
 	// Destuctor
 	~vector() { delete[] vector; data = nullptr; };
 
 	// Operator [], return element at index
-	T&	operator[](int i) { return data[i]; };
+	T&	operator[](int i) const { return data[i]; };
 
 	void push_back(T val);
-	void insert(T val);
+	void insert(T val, int i);
 	void for_each(T val);
 
 private:
@@ -25,6 +26,35 @@ private:
 
 	void alloc_new();
 };
+
+template <typename T>
+vector<T>::vector<T>()
+{
+	capacity = 20;
+	data = new T[capacity];
+	size = 0;
+}
+
+template <typename T>
+vector<T>::vector(int i)
+{
+	capacity = i;
+	data = new T[capacity];
+	size = 0;
+}
+
+template <typename T>
+vector<T>::vector(const vector& vec)
+{
+	if (vec.size > capacity)
+		alloc_new();
+
+	for (int i = 0; vec.size > size; i++)
+	{
+		data[i] = vec.data[i];
+		size++;
+	}
+}
 
 template <typename T>
 void vector<T>::push_back(T val)
@@ -36,11 +66,18 @@ void vector<T>::push_back(T val)
 }
 
 template <typename T>
-vector<T>::vector<T>()
+void vector<T>::insert(T val, int i)
 {
-	capacity = 20;
-	data = new T[capacity];
-	size = 0;
+	if (i <= size)
+	{
+		for (int i = 0; i < size; i++)
+		{
+			if (i = data[i])
+				data[i] = val;
+		}
+	}
+	else
+		// Throw exception
 }
 
 template <typename T>
