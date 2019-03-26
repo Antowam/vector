@@ -13,18 +13,26 @@ public:
 	// Destuctor
 	~vector() { delete[] vector; data = nullptr; };
 
-	// Operator [], return element at index
+	// Operator[], return element at index
 	T&	operator[](int i) const { return data[i]; };
 
-	void push_back(T val);
-	void insert(T val, int i);
-	void for_each(T val);
+	// Getters
+	void Clear() const { return size = 0; };
+	void Size()  const { return size; };
+	void Max()	 const { return capacity; }
+	void First() const { return data[0]; };
+	void Last()	 const { return data[size]; };
+	bool Empty() const { return size == 0; };
+
+	// Mutators
+	void Push_back(T val);
+	void Insert(T val, int i);
 
 private:
 	T* data = nullptr;
 	int size, capacity;
 
-	void alloc_new();
+	void Alloc_new();
 };
 
 template <typename T>
@@ -47,7 +55,7 @@ template <typename T>
 vector<T>::vector(const vector& vec)
 {
 	if (vec.size > capacity)
-		alloc_new();
+		Alloc_new();
 
 	for (int i = 0; vec.size > size; i++)
 	{
@@ -57,16 +65,16 @@ vector<T>::vector(const vector& vec)
 }
 
 template <typename T>
-void vector<T>::push_back(T val)
+void vector<T>::Push_back(T val)
 {
 	if (size + 1 > capacity)
-		alloc_new();
+		Alloc_new();
 
-	size++
+	size++;
 }
 
 template <typename T>
-void vector<T>::insert(T val, int i)
+void vector<T>::Insert(T val, int i)
 {
 	if (i <= size)
 	{
@@ -76,12 +84,12 @@ void vector<T>::insert(T val, int i)
 				data[i] = val;
 		}
 	}
-	else
+	// else
 		// Throw exception
 }
 
 template <typename T>
-void vector<T>::alloc_new()
+void vector<T>::Alloc_new()
 {
 	capacity *= 2;
 
