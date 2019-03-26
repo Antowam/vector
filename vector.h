@@ -3,6 +3,11 @@
 template <class  T>
 class vector
 {
+private:
+	T* data = nullptr;
+
+	int size, capacity;
+
 public:
 
 	// Constructors
@@ -11,7 +16,7 @@ public:
 	vector(const vector& vec);
 
 	// Destructor
-	~vector() { delete[] vector; data = nullptr; };
+	~vector() { delete[] data; };
 
 	// Operator[], return element at index
 	T& operator[](int i) const { return data[i]; };
@@ -27,11 +32,6 @@ public:
 	// Mutators
 	void Push_back(T val);
 	void Insert(T val, int i);
-
-private:
-	T* data = nullptr;
-
-	int size, capacity;
 };
 
 template <typename T>
@@ -84,7 +84,7 @@ void vector<T>::Push_back(T val)
 template <typename T>
 void vector<T>::Insert(T element, int index)
 {
-	if (i <= capacity)
+	if (index <= capacity)
 	{
 		for (int i = 0; i < size; i++)
 		{
