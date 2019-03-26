@@ -53,7 +53,7 @@ vector<T>::vector(int i)
 template <typename T>
 vector<T>::vector(const vector& vec)
 {
-	capacity vec.capacity;
+	capacity = vec.capacity;
 	
 	data = new T[capacity];
 
