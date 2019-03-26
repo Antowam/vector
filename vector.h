@@ -10,7 +10,7 @@ public:
 	vector<T>(int i);
 	vector(const vector& vec);
 
-	// Destuctor
+	// Destructor
 	~vector() { delete[] vector; data = nullptr; };
 
 	// Operator[], return element at index
