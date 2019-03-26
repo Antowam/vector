@@ -7,30 +7,46 @@ public:
 
 	// Constructors
 	vector<T>();
-	vector(const vector&);
+	vector(const vector&); // copy constructor
 
 	// Destuctor
-	~vector() { delete[] vector; };
+	~vector() { delete[] vector; data = nullptr; };
 
 	// Operator [], return element at index
 	T&	operator[](int i) { return data[i]; };
-	T	at(int i) const { return data[i] } ;
 
 	void push_back(T val);
 	void insert(T val);
 	void for_each(T val);
 
 private:
-	T* data;
+	T* data = nullptr;
+	int size, capacity;
 
-	int size,capacity;
+	void alloc_new();
 };
 
 template <typename T>
 void vector<T>::push_back(T val)
 {
 	if (size + 1 > capacity)
-		capacity *= 2;
+		alloc_new();
+
+	size++
+}
+
+template <typename T>
+vector<T>::vector<T>()
+{
+	capacity = 20;
+	data = new T[capacity];
+	size = 0;
+}
+
+template <typename T>
+void vector<T>::alloc_new()
+{
+	capacity *= 2;
 
 	T* tmp = data;
 	data = new T[capacity];
@@ -40,14 +56,4 @@ void vector<T>::push_back(T val)
 		data[i] = tmp[i];
 	}
 	delete tmp;
-
-	return data;
-}
-
-template <typename T>
-vector<T>::vector<T>()
-{
-	capacity = 20;
-	vec = new T[capacity];
-	size = 0;
 }
