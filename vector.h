@@ -7,7 +7,7 @@ public:
 
 	// Constructors
 	vector<T>();
-	vector(const vector&); // copy constructor
+	vector(const vector&);
 
 	// Destuctor
 	~vector() { delete[] vector; };
