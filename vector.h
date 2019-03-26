@@ -37,7 +37,7 @@ void vector<T>::push_back(T val)
 
 	for (int i = 0; i < size; i++)
 	{
-		data[i] = temp[i];
+		data[i] = tmp[i];
 	}
 	delete tmp;
 
