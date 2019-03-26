@@ -39,7 +39,7 @@ void vector<T>::push_back(T val)
 	{
 		data[i] = temp[i];
 	}
-	delete temp;
+	delete tmp;
 
 	return data;
 }
