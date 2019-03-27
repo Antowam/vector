@@ -6,11 +6,11 @@ int main()
 {
 	int hello = 1;
 
-	vector<int> vec;
+	Vector<int> vec;
 
 	for (int i = 0; i < 30; i++)
 	{
-		vec.Push_back(i);
+		vec.PushBack(i);
 	}
 	
 	vec.Insert(3, 5);
