@@ -21,11 +21,11 @@ public:
 	T& operator[](int i) const { return data[i]; };
 
 	// Getters
-	int Clear()	   	   { return size = 0; };
-	int Max()    const { return capacity; }
-	int Size()   const { return size; };
-	int Last()   const { return data[size - 1]; };
-	int First()	 const { return data[0]; };
+	int Clear() { return size = 0; };
+	int Max() const { return capacity; }
+	int Size() const { return size; };
+	int Last() const { return data[size - 1]; };
+	int First() const { return data[0]; };
 	bool Empty() const { return size == 0; };
 
 	// Mutators
