@@ -7,7 +7,6 @@ private:
 	T* data = nullptr;
 
 	int size, capacity;
-
 public:
 
 	// Constructors
