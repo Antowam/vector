@@ -31,7 +31,6 @@ public:
 	// Mutators
 	void Push_back(T val);
 	void Insert(int i, T val);
-	void For_each(const vector& vec);
 
 private:
 	void Alloc_new();
