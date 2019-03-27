@@ -22,11 +22,11 @@ public:
 	T& operator[](int i) const { return data[i]; };
 
 	// Getters
-	void Clear() const { return size = 0; };
-	void Size()  const { return size; };
-	void Max()   const { return capacity; }
-	void First() const { return data[0]; };
-	void Last()  const { return data[size]; };
+	int Clear() const { return size = 0; };
+	int Max()   const { return capacity; }
+	int Size()  const { return size; };
+	int Last()  const { return data[size +1]; };
+	int First() const { return data[0]; };
 	bool Empty() const { return size == 0; };
 
 	// Mutators
@@ -39,25 +39,24 @@ private:
 
 template <typename T>
 vector<T>::vector<T>()
+	: capacity(20)
+	, size(0)
 {
-	capacity = 20;
 	data = new T[capacity];
-	size = 0;
 }
 
 template <typename T>
 vector<T>::vector(int i)
+	: capacity(i)
+	, size(0)
 {
-	capacity = i;
 	data = new T[capacity];
-	size = 0;
 }
 
 template <typename T>
 vector<T>::vector(const vector& vec)
-{
-	capacity = vec.capacity;
-	
+	: capacity(vec.capacity)
+{	
 	data = new T[capacity];
 
 	for (int i = 0; size < vec.size; i++)
@@ -70,10 +69,10 @@ vector<T>::vector(const vector& vec)
 template <typename T>
 void vector<T>::Push_back(T val)
 {
-	if (size + 1 > capacity)
+	if (size > capacity)
 		Alloc_new();
 
-	data[size + 1] = val;
+	data[size] = val;
 	size++;
 }
 
@@ -89,20 +88,24 @@ void vector<T>::Alloc_new()
 	{
 		data[i] = tmp[i];
 	}
-	delete tmp;
+	delete[] tmp;
 }
 
 template <typename T>
-void vector<T>::Insert(T element, int index)
+void vector<T>::Insert(T val, int index)
 {
-	if (index <= capacity)
+	if (size + 1 > capacity)
+		Alloc_new();
+
+	for (int i = capacity; i > index; i--)
 	{
-		for (int i = 0; i < size; i++)
+		if (i > index)
+			data[i] = data[i] + 1;
+		if (int i = index)
 		{
-			if (i = index)
-				data[element];
+			data[i +1] = val;
+			size++;
+			break;
 		}
 	}
-	// else
-		// Throw exception
 }
