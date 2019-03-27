@@ -103,9 +103,3 @@ void vector<T>::Insert(int index, T val)
 
 	size++;
 }
-
-template <typename T>
-void vector<T>::For_each(const vector& vec)
-{
-
-}
