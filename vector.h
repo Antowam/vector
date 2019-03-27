@@ -22,23 +22,24 @@ public:
 	T& operator[](int i) const { return data[i]; };
 
 	// Getters
-	int Clear() const { return size = 0; };
-	int Max()   const { return capacity; }
-	int Size()  const { return size; };
-	int Last()  const { return data[size +1]; };
-	int First() const { return data[0]; };
+	int Clear()	   	   { return size = 0; };
+	int Max()    const { return capacity; }
+	int Size()   const { return size; };
+	int Last()   const { return data[size - 1]; };
+	int First()	 const { return data[0]; };
 	bool Empty() const { return size == 0; };
 
 	// Mutators
 	void Push_back(T val);
-	void Insert(T val, int i);
+	void Insert(int i, T val);
+	void For_each(const vector& vec);
 
 private:
 	void Alloc_new();
 };
 
 template <typename T>
-vector<T>::vector<T>()
+vector<T>::vector()
 	: capacity(20)
 	, size(0)
 {
@@ -56,7 +57,7 @@ vector<T>::vector(int i)
 template <typename T>
 vector<T>::vector(const vector& vec)
 	: capacity(vec.capacity)
-{	
+{
 	data = new T[capacity];
 
 	for (int i = 0; size < vec.size; i++)
@@ -69,7 +70,7 @@ vector<T>::vector(const vector& vec)
 template <typename T>
 void vector<T>::Push_back(T val)
 {
-	if (size > capacity)
+	if (size >= capacity)
 		Alloc_new();
 
 	data[size] = val;
@@ -92,20 +93,19 @@ void vector<T>::Alloc_new()
 }
 
 template <typename T>
-void vector<T>::Insert(T val, int index)
+void vector<T>::Insert(int index, T val)
 {
-	if (size + 1 > capacity)
+	if (size >= capacity)
 		Alloc_new();
 
-	for (int i = capacity; i > index; i--)
-	{
-		if (i > index)
-			data[i] = data[i] + 1;
-		if (int i = index)
-		{
-			data[i +1] = val;
-			size++;
-			break;
-		}
-	}
+	data[Size()] = data[index];
+	data[index] = val;
+
+	size++;
+}
+
+template <typename T>
+void vector<T>::For_each(const vector& vec)
+{
+
 }
