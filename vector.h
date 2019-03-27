@@ -1,82 +1,76 @@
 #pragma once
 
 template <class  T>
-class vector
+class Vector
 {
 private:
 	T* data = nullptr;
 
 	int size, capacity;
+
 public:
 
 	// Constructors
-	vector<T>();
-	vector<T>(int i);
-	vector(const vector& vec);
+	Vector<T>()
+		: capacity(20)
+		, size(0)
+	{
+		data = new T[capacity];
+	}
+
+	Vector<T>(int i)
+		: capacity(i)
+		, size(0)
+	{
+		data = new T[capacity];
+	}
+
+	Vector(const Vector& vec)
+		: capacity(vec.capacity)
+	{
+		data = new T[capacity];
+
+		for (int i = 0; size < vec.size; i++)
+		{
+			data[i] = vec.data[i];
+			size++;
+		}
+	}
 
 	// Destructor
-	~vector() { delete[] data; };
+	~Vector() { delete[] data; };
 
 	// Operator[], return element at index
 	T& operator[](int i) const { return data[i]; };
 
 	// Getters
-	int Clear() { return size = 0; };
+	int Clear() { return size = 0; }
 	int Max() const { return capacity; }
-	int Size() const { return size; };
-	int Last() const { return data[size - 1]; };
-	int First() const { return data[0]; };
-	bool Empty() const { return size == 0; };
+	int Size() const { return size; }
+	int Last() const { return data[size - 1]; }
+	int First() const { return data[0]; }
+	bool Empty() const { return size == 0; }
 
 	// Mutators
-	void Push_back(T val);
+	void PushBack(T val);
 	void Insert(int i, T val);
 
 private:
-	void Alloc_new();
+	void AllocNew();
 };
 
 template <typename T>
-vector<T>::vector()
-	: capacity(20)
-	, size(0)
-{
-	data = new T[capacity];
-}
-
-template <typename T>
-vector<T>::vector(int i)
-	: capacity(i)
-	, size(0)
-{
-	data = new T[capacity];
-}
-
-template <typename T>
-vector<T>::vector(const vector& vec)
-	: capacity(vec.capacity)
-{
-	data = new T[capacity];
-
-	for (int i = 0; size < vec.size; i++)
-	{
-		data[i] = vec.data[i];
-		size++;
-	}
-}
-
-template <typename T>
-void vector<T>::Push_back(T val)
+void Vector<T>::PushBack(T val)
 {
 	if (size >= capacity)
-		Alloc_new();
+		AllocNew();
 
 	data[size] = val;
 	size++;
 }
 
 template <typename T>
-void vector<T>::Alloc_new()
+void Vector<T>::AllocNew()
 {
 	capacity *= 2;
 
@@ -91,12 +85,12 @@ void vector<T>::Alloc_new()
 }
 
 template <typename T>
-void vector<T>::Insert(int index, T val)
+void Vector<T>::Insert(int index, T val)
 {
 	if (size >= capacity)
-		Alloc_new();
+		AllocNew();
 
-	data[Size()] = data[index];
+	data[size] = data[index];
 	data[index] = val;
 
 	size++;
