@@ -1,110 +1,151 @@
 #pragma once
 
+#include <assert.h>
+
 template <class  T>
-class vector
+class Vector
 {
 private:
-	T* data = nullptr;
+	T* _data = nullptr;
 
-	int size, capacity = 0;
+	int _size, _capacity = 0;
 
 public:
 
 	// Constructors
-	vector<T>();
-	vector<T>(int i);
-	vector(const vector& vec);
+	Vector<T>() 
+		: _capacity(20)
+		, _size(0)
+	{
+		_data = new T[_capacity];
+	}
+
+	Vector<T>(int i) 
+		: _capacity(i)
+		, _size(0)
+	{
+		_data = new T[_capacity];
+	}
+
+	Vector(const Vector& vec) 
+		: _capacity(vec._capacity)
+		, _size(vec._size)
+	{
+		_data = new T[_capacity];
+
+		for (int i = 0; _size < vec._size; i++)
+		{
+			_data[i] = vec._data[i];
+			_size++;
+		}
+	}
 
 	// Destructor
-	~vector() { delete[] data; };
+	~Vector() { delete[] _data; };
 
 	// Operator[], return element at index
-	T& operator[](int i) const { return data[i]; };
+	T& operator[](int i) const { return _data[i]; };
 
 	// Getters
-	int Max()   const { return capacity; }
-	int Size()  const { return size; };
-	T Last()  const { return data[size-1]; };
-	T First() const { return data[0]; };
-	bool Empty() const { return size == 0; };
+	bool isEmpty()	const { return _size == 0;		}
+	int max()		const { return _capacity;		}
+	int length()	const { return _size;			}
+	T* begin()		const { return _data;			}
+	T* end()		const { return _data + _size;	}
 
 	// Mutators
-	void Clear() const { size = 0; };
-	void Push_back(const T& val);
-	void Insert(const T& val, int i);
+	void sort();
+	void swap(T& first, T& second);
+	void insert(int index, const T& val);
+	void push_back(const T& val);
+	void clear() { _size = 0; }
 
 private:
-	void Alloc_new();
+	void alloc_new();
 };
 
-template <typename T>
-vector<T>::vector<T>()
-	: capacity(20)
-	, size(0)
+template <class T>
+void Vector<T>::swap(T& first, T& second)
 {
-	data = new T[capacity];
+	//assert(first < _size && second < _size && "index out of bounds.");
+	//bork, går att swappa utanför bounds. lyckas inte lösa.
+
+	T tmp = first;
+	first = second;
+	second = tmp;
 }
 
-template <typename T>
-vector<T>::vector(int i)
-	: capacity(i)
-	, size(0)
+template <class  T>
+void Vector<T>::sort()
 {
-	data = new T[capacity];
-}
-
-template <typename T>
-vector<T>::vector(const vector& vec)
-	: capacity(vec.capacity)
-{	
-	data = new T[capacity];
-
-	for (int i = 0; size < vec.size; i++)
+	for (int i = 0; i < _size; i++)
 	{
-		data[i] = vec.data[i];
-		size++;
+		int smallest = _data[i];
+		int smallestIndex = i;
+
+		for (int j = i; j < _size; j++)
+		{
+			if (_data[j] < smallest)
+			{
+				smallest = _data[j];
+				smallestIndex = j;
+			}
+		}
+		swap(_data[i], _data[smallestIndex]);
 	}
 }
 
 template <typename T>
-void vector<T>::Push_back(const T& val)
+void Vector<T>::push_back(const T& val)
 {
-	if (size > capacity)
-		Alloc_new();
+	if (_size + 1 > _capacity)
+		alloc_new();
 
-	data[size++] = val;
+	_data[_size++] = val;
 }
 
 template <typename T>
-void vector<T>::Alloc_new()
+void Vector<T>::alloc_new()
 {
-	capacity *= 2;
+	_capacity *= 2;
 
-	T* tmp = data;
-	data = new T[capacity];
+	T* tmp = _data;
+	_data = new T[_capacity];
 
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < _size; i++)
 	{
-		data[i] = tmp[i];
+		_data[i] = tmp[i];
 	}
 	delete[] tmp;
 }
 
 template <typename T>
-void vector<T>::Insert(const T& val, int index)
+void Vector<T>::insert(int index, const T& val)
 {
-	if (size + 1 > capacity)
-		Alloc_new();
+	assert (_size + 1 > index && "index out of bounds.");
+	if (_size + 1 > _capacity)
+		alloc_new();
 
-	for (int i = capacity; i > index; i--)
+	T* tmp = _data;
+	_data = new T[_capacity];
+	_size++;
+
+	for (int i = 0; i < _size; i++)
 	{
-		if (i > index)
-			data[i] = data[i] + 1;
-		if (int i = index)
+		if (i < index)
 		{
-			data[i +1] = val;
-			size++;
-			break;
+			_data[i] = tmp[i];
+		}
+		else if (i == index)
+		{
+			_data[i]++;
+		}
+		else
+		{
+			_data[i] = tmp[i - 1];
 		}
 	}
+	
+	_data[index] = val;
+	delete[] tmp;
 }
