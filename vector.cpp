@@ -6,14 +6,14 @@ int main()
 {
 	int hello = 1;
 
-	Vector<int> vec;
+	Vector<float> vec;
 
 	for (int i = 0; i < 25; i++)
 	{
 		vec.push_back(i);
 	}
 	
-	vec.swap(vec[5], vec[22]);
+	vec.swap(vec[5], vec[12]);
 	vec.sort();
 
 	for (int i = 0; i < vec.length(); i++)
