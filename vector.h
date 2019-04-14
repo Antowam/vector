@@ -46,12 +46,13 @@ public:
 	// Operator[], return element at index
 	T& operator[](int i) const { return _data[i]; };
 
-	// Getters
+	// Checks
 	bool isEmpty()	const { return _size == 0;		}
 	int max()		const { return _capacity;		}
 	int length()	const { return _size;			}
 	T* begin()		const { return _data;			}
 	T* end()		const { return _data + _size;	}
+	T* search(const T& val);
 
 	// Mutators
 	void sort();
@@ -63,6 +64,15 @@ public:
 private:
 	void alloc_new();
 };
+
+template <class  T>
+T* Vector<T>::search(const T& val)
+{
+	for (int i = 0; i < _size; i++)
+	{
+
+	}
+}
 
 template <class T>
 void Vector<T>::swap(T& first, T& second)
