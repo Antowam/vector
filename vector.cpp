@@ -4,9 +4,7 @@
 
 int main()
 {
-	int hello = 1;
-
-	Vector<float> vec;
+	Vector<int> vec;
 
 	for (int i = 0; i < 25; i++)
 	{
@@ -20,6 +18,8 @@ int main()
 	{
 		std::cout << vec[i] << ", " << vec.length() << ", " << vec.max() << std::endl;
 	}
+
+	vec.search(2);
 
 	std::system("pause");
 }
