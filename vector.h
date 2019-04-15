@@ -52,7 +52,7 @@ public:
 	int length()	const { return _size;			}
 	T* begin()		const { return _data;			}
 	T* end()		const { return _data + _size;	}
-	T* search(const T& val);
+	int search(const T& val) const ;
 
 	// Mutators
 	void sort();
@@ -66,19 +66,37 @@ private:
 };
 
 template <class  T>
-T* Vector<T>::search(const T& val)
+int Vector<T>::search(const T& val) const
 {
+	int low = 0;
+	int mid = 0;
+	int high = _size - 1;
+
 	for (int i = 0; i < _size; i++)
 	{
+		mid = (low + high) / 2;
 
+		if (val == _data[mid])
+		{
+			printf("value found at index %d", mid);
+			return mid;
+		}
+		else if (val > _data[mid])
+		{
+			low = mid + 1;
+		}
+		else
+			high = mid - 1;
 	}
+	printf("value not found");
+	return 0;
 }
 
 template <class T>
 void Vector<T>::swap(T& first, T& second)
 {
-	//assert(first < _size && second < _size && "index out of bounds.");
-	//bork, går att swappa utanför bounds. lyckas inte lösa.
+	//lel gör om så att funktionen tar index inte värde edjot
+	//assert(first + _size && second < _size && "index out of bounds.");
 
 	T tmp = first;
 	first = second;
@@ -90,7 +108,7 @@ void Vector<T>::sort()
 {
 	for (int i = 0; i < _size; i++)
 	{
-		int smallest = _data[i];
+		T smallest = _data[i];
 		int smallestIndex = i;
 
 		for (int j = i; j < _size; j++)
